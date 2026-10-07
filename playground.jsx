@@ -446,7 +446,7 @@ async function bundle(entry, getSource, appFile, debug) {
     let hasDefaultExport = false;
     const compiled = Babel.transform(source, {
       filename: name,
-      presets: ["react"],
+      presets: [["react", { runtime: "classic" }]], // React.createElement (jsx-runtime import nahi)
       plugins: [
         ...(debug && path === appFile ? [debugPlugin] : []),
         () => ({
@@ -543,8 +543,8 @@ async function buildPreview(hook, getSource, mode, deferMount) {
   <div id="root"></div>
   <script>${CONSOLE_BRIDGE}<\/script>
   ${bridge ? `<script>${bridge}<\/script>` : ""}
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"><\/script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"><\/script>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"><\/script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"><\/script>
   <script type="module">
     ${startScript}
   <\/script>
